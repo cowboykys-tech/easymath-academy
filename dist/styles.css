@@ -1,0 +1,116 @@
+:root {
+  --ink: #18352e;
+  --green: #173f35;
+  --green-2: #285f50;
+  --mint: #dfeee7;
+  --paper: #f7f3ea;
+  --card: #fffdf8;
+  --coral: #ef765f;
+  --yellow: #f3cb69;
+  --line: #ded9ce;
+  --muted: #708078;
+  --shadow: 0 18px 55px rgba(26, 57, 49, .10);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Gowun Dodum", sans-serif; min-width: 320px; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 252px minmax(0, 1fr); }
+.sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 28px 22px 20px; background: var(--green); color: #fff; }
+.brand { display: flex; align-items: center; gap: 12px; padding: 0 8px 30px; }
+.brand-mark { width: 42px; height: 42px; border-radius: 14px 14px 14px 4px; display: grid; place-items: center; color: var(--green); background: var(--yellow); font: 800 24px/1 "Nanum Myeongjo", serif; }
+.brand strong, .brand span, .profile strong, .profile span { display: block; }
+.brand strong { font: 800 19px/1.2 "Nanum Myeongjo", serif; }
+.brand span { color: #adc7bd; font-size: 12px; margin-top: 4px; }
+.nav { display: grid; gap: 7px; }
+.nav-item { border: 0; padding: 13px 14px; display: flex; gap: 12px; align-items: center; border-radius: 14px; color: #bad0c8; background: transparent; text-align: left; transition: .2s ease; }
+.nav-item span { width: 20px; font-size: 18px; }
+.nav-item:hover, .nav-item.active { color: #fff; background: rgba(255,255,255,.10); transform: translateX(2px); }
+.side-note { margin-top: auto; padding: 19px; border: 1px solid rgba(255,255,255,.13); border-radius: 20px; background: rgba(255,255,255,.06); }
+.side-note .eyebrow { color: var(--yellow); }
+.side-note strong { display: block; margin: 8px 0; line-height: 1.45; }
+.side-note p { color: #b8cec6; font-size: 12px; line-height: 1.6; margin: 0; }
+.profile { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; gap: 10px; margin-top: 18px; padding: 14px 8px 0; border-top: 1px solid rgba(255,255,255,.12); }
+.avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--mint); color: var(--green); font-weight: 700; }
+.profile strong { font-size: 14px; }.profile span { font-size: 11px; color: #9ebcb1; }.profile button { border: 0; background: transparent; color: #fff; }
+
+.main { min-width: 0; padding: 36px clamp(24px, 4vw, 64px) 70px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.topbar h1, .section-intro h2 { font: 800 clamp(27px, 3vw, 40px)/1.25 "Nanum Myeongjo", serif; margin: 5px 0 0; letter-spacing: -.025em; }
+.eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em; color: var(--green-2); }
+.eyebrow.light { color: #b8d5cb; }
+.top-actions { display: flex; gap: 10px; align-items: center; }
+.search-box { display: flex; align-items: center; width: min(360px, 32vw); background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 0 13px; }
+.search-box input { width: 100%; border: 0; outline: 0; padding: 11px; background: transparent; }
+.primary, .secondary, .light-button { border: 0; border-radius: 13px; padding: 12px 17px; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+.primary { color: white; background: var(--green); box-shadow: 0 10px 24px rgba(23,63,53,.16); }
+.primary:hover, .secondary:hover, .light-button:hover { transform: translateY(-2px); }
+.primary.small { white-space: nowrap; padding: 11px 15px; }
+.secondary { color: var(--green); background: var(--mint); }
+.light-button { align-self: flex-start; color: var(--green); background: var(--yellow); }
+.text-button { border: 0; padding: 0; color: var(--green-2); background: transparent; font-weight: 700; }
+
+.view { display: none; animation: reveal .35s ease; }
+.view.active { display: block; }
+@keyframes reveal { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, .7fr); gap: 18px; }
+.hero-card, .focus-card, .panel, .stat { border-radius: var(--radius); }
+.hero-card { min-height: 270px; padding: 34px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; background: var(--green); position: relative; overflow: hidden; }
+.hero-card::after { content: "A-1"; position: absolute; right: -6px; bottom: -40px; font: 800 145px/1 "Nanum Myeongjo", serif; color: rgba(255,255,255,.05); }
+.hero-card h2 { margin: 12px 0; max-width: 650px; font: 800 clamp(28px, 3vw, 42px)/1.25 "Nanum Myeongjo", serif; letter-spacing: -.035em; }
+.hero-card p { max-width: 580px; color: #bfd3cc; line-height: 1.7; }
+.focus-card { padding: 28px; background: var(--yellow); display: flex; flex-direction: column; align-items: flex-start; }
+.focus-number { margin-top: auto; font: 800 72px/1 "Nanum Myeongjo", serif; }
+.focus-card strong { font-size: 19px; }.focus-card p { margin: 8px 0 16px; line-height: 1.55; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 18px 0; }
+.stat { padding: 21px; background: var(--card); border: 1px solid rgba(222,217,206,.8); }
+.stat.accent { background: var(--mint); border-color: transparent; }
+.stat span, .stat small { display: block; }.stat span { color: var(--muted); font-size: 13px; }.stat strong { display: block; margin: 6px 0 4px; font: 800 34px/1 "Nanum Myeongjo", serif; }.stat small { color: var(--muted); font-size: 11px; }
+.content-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: 18px; }
+.panel { background: var(--card); border: 1px solid rgba(222,217,206,.85); padding: 25px; box-shadow: 0 4px 18px rgba(26,57,49,.035); }
+.panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+.panel-head h3 { margin: 4px 0 0; font: 800 21px/1.2 "Nanum Myeongjo", serif; }
+.badge { border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 700; }.badge.coral { background: #fde1da; color: #a84131; }
+.schedule-list, .pending-list, .similar-list { display: grid; gap: 9px; }
+.schedule-item { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: #f7f5ef; }
+.time { font-weight: 700; color: var(--green-2); }.schedule-item strong, .schedule-item span { display: block; }.schedule-item span { color: var(--muted); font-size: 12px; margin-top: 3px; }
+.code { border-radius: 10px; padding: 7px 10px; color: var(--green); background: var(--mint); font-weight: 700; font-size: 12px; }
+.pending-item { display: grid; grid-template-columns: 8px 1fr auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid #ece7dc; }
+.pending-item:last-child { border-bottom: 0; }.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }.pending-item strong, .pending-item span { display: block; }.pending-item span { color: var(--muted); font-size: 12px; margin-top: 3px; }
+.recent-panel { margin-top: 18px; }
+.record-row { display: grid; grid-template-columns: 120px 110px 1fr 110px 90px; align-items: center; gap: 14px; padding: 14px 8px; border-top: 1px solid #ece7dc; font-size: 13px; }
+.record-row.header { border-top: 0; padding-top: 0; color: var(--muted); font-size: 11px; }
+.record-row:not(.header) { cursor: pointer; }.record-row:not(.header):hover { background: #faf8f2; }
+
+.section-intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
+.section-intro p { color: var(--muted); max-width: 680px; margin: 9px 0 0; line-height: 1.6; }
+.filter-panel { display: flex; align-items: end; gap: 13px; margin-bottom: 18px; }
+.field { display: grid; gap: 7px; min-width: 130px; }.field.grow { flex: 1; }.field label { font-size: 12px; font-weight: 700; color: var(--green-2); }
+.field input, .field select, .field textarea { width: 100%; border: 1px solid var(--line); border-radius: 13px; background: #fff; padding: 12px 13px; outline: 0; color: var(--ink); }
+.field textarea { resize: vertical; line-height: 1.65; }.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(40,95,80,.09); }
+.result-summary { display: flex; align-items: center; gap: 10px; margin: 20px 4px 12px; }.result-summary span { color: var(--muted); font-size: 12px; }
+.record-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.record-card { padding: 22px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.record-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }.record-card h3 { margin: 13px 0 9px; font: 800 19px/1.3 "Nanum Myeongjo", serif; }.record-card p { color: #4e625b; line-height: 1.65; font-size: 13px; min-height: 64px; }.record-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }.record-meta span { padding: 5px 8px; border-radius: 8px; background: #f1eee6; font-size: 11px; }.card-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.draft-state { display: flex; gap: 7px; align-items: center; color: var(--muted); font-size: 12px; }.draft-state span { width: 7px; height: 7px; border-radius: 50%; background: #59a781; }
+.compose-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, .7fr); gap: 18px; align-items: start; }
+.form-panel { display: grid; gap: 18px; }.form-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }.form-row:has(#homeworkRate) { grid-template-columns: repeat(2, 1fr); }.input-with-action { display: flex; gap: 8px; }.input-with-action button { border: 0; border-radius: 12px; white-space: nowrap; padding: 0 14px; color: var(--green); background: var(--mint); font-weight: 700; }.form-actions { display: flex; justify-content: flex-end; gap: 9px; padding-top: 5px; }
+.suggestion-panel { position: sticky; top: 22px; }.helper { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: -8px; }.similar-item { padding: 14px; border-radius: 15px; background: #f5f3ec; }.similar-item strong, .similar-item small { display: block; }.similar-item small { color: var(--muted); margin: 4px 0 10px; }.similar-item button { border: 0; padding: 0; color: var(--green-2); background: transparent; font-weight: 700; }
+
+.people-tabs { display: flex; gap: 8px; margin-bottom: 16px; }.people-tab { border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; color: var(--muted); background: transparent; }.people-tab.active { color: #fff; background: var(--green); border-color: var(--green); }
+.people-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }.people-card { padding: 22px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }.people-card .initial { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; color: var(--green); background: var(--mint); font: 800 18px/1 "Nanum Myeongjo", serif; }.people-card h3 { margin: 13px 0 5px; font: 800 19px/1.2 "Nanum Myeongjo", serif; }.people-card p { color: var(--muted); font-size: 12px; line-height: 1.6; }.people-card dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; margin: 16px 0 0; font-size: 12px; }.people-card dt { color: var(--muted); }.people-card dd { margin: 0; text-align: right; font-weight: 700; }
+
+.toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translate(-50%, 20px); padding: 12px 17px; border-radius: 12px; background: var(--ink); color: #fff; opacity: 0; pointer-events: none; transition: .25s ease; box-shadow: var(--shadow); }.toast.show { opacity: 1; transform: translate(-50%, 0); }
+dialog { width: min(660px, calc(100vw - 30px)); border: 0; border-radius: 24px; padding: 28px; color: var(--ink); background: var(--card); box-shadow: var(--shadow); }dialog::backdrop { background: rgba(18,42,35,.55); backdrop-filter: blur(3px); }.dialog-close { position: absolute; right: 18px; top: 15px; border: 0; background: transparent; font-size: 28px; color: var(--muted); }.dialog-body h2 { font: 800 28px/1.3 "Nanum Myeongjo", serif; margin: 8px 36px 12px 0; }.dialog-body p { line-height: 1.75; }.dialog-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }.dialog-details div { padding: 12px; border-radius: 13px; background: #f3f0e8; }.dialog-details span, .dialog-details strong { display: block; }.dialog-details span { color: var(--muted); font-size: 10px; margin-bottom: 5px; }.dialog-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+@media (max-width: 1100px) {
+  .app-shell { grid-template-columns: 82px minmax(0, 1fr); }.sidebar { padding: 24px 13px; }.brand { padding-inline: 7px; }.brand > div:last-child, .nav-item:not(.active)::after, .nav-item { font-size: 0; }.brand-mark { width: 40px; }.nav-item { justify-content: center; }.nav-item span { width: auto; font-size: 20px; }.side-note, .profile > div:not(.avatar), .profile button { display: none; }.profile { grid-template-columns: 1fr; }.avatar { margin: auto; }.stat-grid { grid-template-columns: repeat(2, 1fr); }.content-grid, .compose-grid { grid-template-columns: 1fr; }.suggestion-panel { position: static; }
+}
+@media (max-width: 760px) {
+  .app-shell { display: block; }.sidebar { position: fixed; z-index: 10; left: 10px; right: 10px; bottom: 10px; top: auto; width: auto; height: auto; padding: 8px; border-radius: 20px; }.brand, .side-note, .profile { display: none; }.nav { grid-template-columns: repeat(4, 1fr); }.nav-item, .nav-item.active { display: grid; justify-items: center; gap: 2px; padding: 8px 2px; font-size: 9px; transform: none; }.nav-item span { font-size: 18px; }.main { padding: 24px 15px 98px; }.topbar { align-items: flex-start; }.top-actions { display: none; }.hero-grid, .record-cards, .people-grid { grid-template-columns: 1fr; }.hero-card { min-height: 300px; }.stat-grid { grid-template-columns: repeat(2, 1fr); }.content-grid { grid-template-columns: 1fr; }.record-row { grid-template-columns: 82px 90px 1fr; }.record-row > :nth-child(4), .record-row > :nth-child(5) { display: none; }.filter-panel { display: grid; }.form-row, .form-row:has(#homeworkRate) { grid-template-columns: 1fr; }.section-intro { align-items: flex-start; }.section-intro > .primary { display: none; }.dialog-details { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173f35" />
+  <title>이지매쓰 학원관리</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">E</div>
+        <div>
+          <strong>이지매쓰</strong>
+          <span>학원관리 시제품</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> 원장 현황판</button>
+        <button class="nav-item" data-view="records"><span>↻</span> 반복 기록 찾기</button>
+        <button class="nav-item" data-view="compose"><span>✎</span> 수업 기록 작성</button>
+        <button class="nav-item" data-view="people"><span>◎</span> 학생·반·선생님</button>
+      </nav>
+
+      <div class="side-note">
+        <span class="eyebrow">OBSIDIAN READY</span>
+        <strong>기록이 쌓일수록<br>다시 찾기 쉬워져요.</strong>
+        <p>수업기록을 Markdown으로 내려받아 옵시디언 기록 구조를 미리 확인할 수 있습니다.</p>
+      </div>
+
+      <div class="profile">
+        <div class="avatar">원</div>
+        <div><strong>원장님</strong><span>전체 관리</span></div>
+        <button aria-label="설정">•••</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow" id="todayLabel">TODAY</span>
+          <h1 id="pageTitle">오늘의 학원 흐름</h1>
+        </div>
+        <div class="top-actions">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="globalSearch" type="search" placeholder="학생, 반, 진도코드 검색" />
+          </label>
+          <button class="primary small" data-open-compose>+ 기록 작성</button>
+        </div>
+      </header>
+
+      <section class="view active" id="dashboardView">
+        <div class="hero-grid">
+          <article class="hero-card">
+            <div>
+              <span class="eyebrow light">DIRECTOR'S DESK</span>
+              <h2>반복되는 기록은 찾고,<br>달라진 내용만 고치세요.</h2>
+              <p>같은 진도코드의 이전 수업을 자동으로 모아 이번 수업 기록에 바로 활용합니다.</p>
+            </div>
+            <button class="light-button" data-view-jump="records">이전 기록 찾아보기 →</button>
+          </article>
+          <article class="focus-card">
+            <span class="eyebrow">오늘 먼저 볼 것</span>
+            <div class="focus-number">3</div>
+            <strong>원장 검토 대기</strong>
+            <p>선생님이 작성한 기록 중 확인이 필요한 항목입니다.</p>
+            <button class="text-button" data-filter-pending>검토 목록 열기</button>
+          </article>
+        </div>
+
+        <div class="stat-grid">
+          <article class="stat"><span>오늘 수업</span><strong>5</strong><small>3개 반 · 선생님 2명</small></article>
+          <article class="stat"><span>이번 주 기록</span><strong id="weekRecordCount">12</strong><small>지난주보다 2건 많음</small></article>
+          <article class="stat accent"><span>재사용된 기록</span><strong>7</strong><small>새로 작성하는 시간 절약</small></article>
+          <article class="stat"><span>미작성 수업</span><strong>1</strong><small>중등 B반 · 19:30</small></article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel schedule-panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">TODAY'S CLASSES</span><h3>오늘 수업</h3></div>
+              <button class="text-button">전체 일정</button>
+            </div>
+            <div id="scheduleList" class="schedule-list"></div>
+          </article>
+
+          <article class="panel pending-panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">REVIEW QUEUE</span><h3>원장 검토 대기</h3></div>
+              <span class="badge coral">3건</span>
+            </div>
+            <div id="pendingList" class="pending-list"></div>
+          </article>
+        </div>
+
+        <article class="panel recent-panel">
+          <div class="panel-head">
+            <div><span class="eyebrow">RECENT RECORDS</span><h3>최근 누적 기록</h3></div>
+            <button class="text-button" data-view-jump="records">기록 보관함 열기</button>
+          </div>
+          <div id="recentRecords" class="record-table"></div>
+        </article>
+      </section>
+
+      <section class="view" id="recordsView">
+        <div class="section-intro">
+          <div><span class="eyebrow">REUSE LIBRARY</span><h2>반복 기록 찾기</h2><p>진도코드와 반, 선생님을 기준으로 이전 수업을 찾아 이번 기록의 출발점으로 사용합니다.</p></div>
+          <button class="primary" data-open-compose>새 기록 작성</button>
+        </div>
+        <article class="panel filter-panel">
+          <div class="field grow"><label for="recordSearch">진도코드 또는 학습내용</label><input id="recordSearch" value="A-1" placeholder="예: A-1, 분수의 덧셈" /></div>
+          <div class="field"><label for="classFilter">반</label><select id="classFilter"><option value="all">전체 반</option></select></div>
+          <div class="field"><label for="teacherFilter">선생님</label><select id="teacherFilter"><option value="all">전체 선생님</option></select></div>
+          <button class="primary" id="searchRecords">찾기</button>
+        </article>
+        <div class="result-summary"><strong id="resultCount">0개의 기록</strong><span>가장 최근 기록부터 표시됩니다.</span></div>
+        <div id="recordCards" class="record-cards"></div>
+      </section>
+
+      <section class="view" id="composeView">
+        <div class="section-intro">
+          <div><span class="eyebrow">CLASS NOTE</span><h2>수업 기록 작성</h2><p>진도코드를 입력하면 같은 내용을 다룬 이전 기록을 오른쪽에서 바로 찾습니다.</p></div>
+          <div class="draft-state"><span></span> 자동 임시저장</div>
+        </div>
+        <div class="compose-grid">
+          <form id="recordForm" class="panel form-panel">
+            <div class="form-row">
+              <div class="field"><label for="recordDate">수업일</label><input id="recordDate" type="date" required /></div>
+              <div class="field"><label for="recordClass">반</label><select id="recordClass" required></select></div>
+              <div class="field"><label for="recordTeacher">선생님</label><select id="recordTeacher" required></select></div>
+            </div>
+            <div class="field"><label for="progressCode">진도코드</label><div class="input-with-action"><input id="progressCode" placeholder="예: A-1" required /><button type="button" id="findSimilar">이전 기록 찾기</button></div></div>
+            <div class="field"><label for="lessonTitle">수업 주제</label><input id="lessonTitle" placeholder="이번 수업의 핵심 주제" required /></div>
+            <div class="field"><label for="commonSummary">공통 학습 내용</label><textarea id="commonSummary" rows="7" placeholder="반 전체가 학습한 핵심 내용을 기록하세요."></textarea></div>
+            <div class="field"><label for="studentNotes">학생별 관찰 내용</label><textarea id="studentNotes" rows="6" placeholder="학생별 이해도, 어려워한 부분, 다음 수업에서 확인할 내용을 기록하세요."></textarea></div>
+            <div class="form-row">
+              <div class="field"><label for="homeworkRate">숙제 수행률</label><input id="homeworkRate" type="number" min="0" max="100" value="80" /></div>
+              <div class="field"><label for="wrongRate">교재 오답률</label><input id="wrongRate" type="number" min="0" max="100" value="20" /></div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="secondary" id="saveDraft">임시저장</button>
+              <button type="submit" class="primary">원장 검토로 보내기</button>
+            </div>
+          </form>
+          <aside class="panel suggestion-panel">
+            <div class="panel-head"><div><span class="eyebrow">SMART REUSE</span><h3>같은 진도의 과거 기록</h3></div></div>
+            <p class="helper">불러오기를 누르면 공통 학습 내용이 채워집니다. 이번 수업에서 달라진 부분만 고치면 됩니다.</p>
+            <div id="similarRecords" class="similar-list"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="peopleView">
+        <div class="section-intro">
+          <div><span class="eyebrow">ACADEMY DIRECTORY</span><h2>학생·반·선생님</h2><p>각 기록이 누구와 어떤 반, 어떤 선생님에게 연결되는지 한눈에 확인합니다.</p></div>
+        </div>
+        <div class="people-tabs" role="tablist">
+          <button class="people-tab active" data-people="classes">반별</button>
+          <button class="people-tab" data-people="students">학생별</button>
+          <button class="people-tab" data-people="teachers">선생님별</button>
+        </div>
+        <div id="peopleGrid" class="people-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <dialog id="recordDialog">
+    <button class="dialog-close" aria-label="닫기">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
