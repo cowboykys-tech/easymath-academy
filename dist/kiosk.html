@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#173f35" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="이지매쓰 등원" />
+  <title>이지매쓰 학생 등원</title>
+  <link rel="manifest" href="/kiosk.webmanifest" />
+  <link rel="icon" href="/kiosk-icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/kiosk-icon-192.png" />
+  <link rel="stylesheet" href="/kiosk.css?v=1" />
+</head>
+<body>
+  <main class="kiosk-shell">
+    <header class="kiosk-header">
+      <div class="kiosk-brand"><span>E</span><div><strong>이지매쓰</strong><small>학생 등원</small></div></div>
+      <div class="kiosk-clock"><strong id="clockTime">--:--</strong><span id="clockDate">오늘</span></div>
+    </header>
+
+    <section class="pair-screen" id="pairScreen" hidden>
+      <div class="pair-card">
+        <span class="eyebrow">DEVICE SETUP</span>
+        <h1>등원 기기를 연결해 주세요</h1>
+        <p>원장님 화면의 <b>학생 등원·리포트</b>에서 6자리 연결코드를 만든 뒤 입력합니다. 최초 한 번만 필요합니다.</p>
+        <form id="pairForm">
+          <label><span>기기 이름</span><input id="deviceName" maxlength="80" value="입구 등원 태블릿" autocomplete="off" /></label>
+          <label><span>6자리 연결코드</span><input id="pairingCode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000" autocomplete="one-time-code" required /></label>
+          <button type="submit">기기 연결하기</button>
+        </form>
+        <p class="pair-error" id="pairError" role="alert"></p>
+      </div>
+    </section>
+
+    <section class="checkin-screen" id="checkinScreen" hidden>
+      <div class="welcome-copy">
+        <span class="eyebrow">WELCOME TO EASY MATH</span>
+        <h1>안녕하세요!</h1>
+        <p>본인 전화번호 뒤 <b>4자리</b>를 눌러 주세요.</p>
+      </div>
+      <div class="pin-display" id="pinDisplay" aria-label="입력한 번호"><i></i><i></i><i></i><i></i></div>
+      <div class="keypad" id="keypad" aria-label="숫자 키패드">
+        <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+        <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+        <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+        <button class="key-secondary" data-action="clear">전체 지우기</button><button data-key="0">0</button><button class="key-secondary backspace" data-action="backspace" aria-label="한 자리 지우기">⌫</button>
+      </div>
+      <button class="checkin-button" id="checkinButton" disabled>등원하기</button>
+      <p class="checkin-help" id="checkinHelp">번호는 화면에 표시되거나 저장되지 않습니다.</p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-live="assertive">
+      <div class="result-mark">✓</div>
+      <h1 id="resultTitle">등원 확인되었습니다</h1>
+      <p id="resultMessage"></p>
+      <small id="resultSubtext">잠시 후 입력 화면으로 돌아갑니다.</small>
+      <button id="resultReset" type="button">확인</button>
+    </section>
+
+    <section class="choice-screen" id="choiceScreen" hidden>
+      <span class="eyebrow">SELECT STUDENT</span>
+      <h1>본인 이름을 선택해 주세요</h1>
+      <p>전화번호 뒤 4자리가 같은 학생이 있습니다.</p>
+      <div id="candidateList" class="candidate-list"></div>
+      <button class="choice-cancel" id="choiceCancel" type="button">번호 다시 입력</button>
+    </section>
+
+    <footer><span id="deviceLabel">기기 확인 중</span><button id="installButton" data-pwa-install type="button" hidden>홈 화면에 설치</button><button id="resetPairing" type="button">기기 연결 초기화</button></footer>
+  </main>
+  <script src="/kiosk.js?v=2"></script>
+  <script src="/pwa.js?v=1"></script>
+</body>
+</html>

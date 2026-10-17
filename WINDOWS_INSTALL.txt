@@ -1,0 +1,23 @@
+이지매쓰 학원관리 Windows 설치
+================================
+
+준비 조건
+- Windows 11 64비트
+- Python 3.11 이상
+- 원장님 Windows 계정
+
+설치 방법
+1. 압축을 풉니다.
+2. INSTALL-EASYMATH.cmd를 실행합니다.
+3. 설치 창에서 원장 로그인 비밀번호를 두 번 입력합니다.
+4. 설치가 끝나면 바탕화면의 '이지매쓰 학원관리'를 실행합니다.
+
+자동으로 준비되는 항목
+- 프로그램: %LOCALAPPDATA%\EasyMathAcademy
+- 사진과 DB: 프로그램의 data 폴더
+- 백업: 문서\EasyMath Backups
+- Windows 로그인 시 서버 자동 시작
+- 매일 22시 30분 자동 백업
+
+카카오 로그인과 외부 HTTPS는 학원 소유 도메인·Kakao Developers 키가 준비된 뒤 연결합니다.
+비밀번호와 API 키를 메모장, Git 또는 Obsidian에 적지 마세요.

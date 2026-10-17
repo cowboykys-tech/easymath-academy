@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173f35" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="이지매쓰 원장" />
+  <title>원장님 로그인 · 이지매쓰</title>
+  <link rel="manifest" href="/owner.webmanifest" />
+  <link rel="icon" href="/owner-icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/owner-icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./owner-login.css?v=1" />
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">E</div>
+      <span class="eyebrow">EASYMATH DIRECTOR</span>
+      <h1>원장님 로그인</h1>
+      <p>학생 기록과 수업 사진을 보호하기 위해 원장님 계정으로 로그인해 주세요.</p>
+      <form id="ownerLoginForm">
+        <label>아이디<input id="ownerUsername" name="username" value="owner" autocomplete="username" required /></label>
+        <label>비밀번호<input id="ownerPassword" name="password" type="password" autocomplete="current-password" required /></label>
+        <button type="submit">로그인</button>
+        <button class="install-button" data-pwa-install type="button" hidden>원장님 앱 설치</button>
+      </form>
+      <p class="message" id="loginMessage" role="alert"></p>
+      <small>비밀번호는 이 화면이나 프로그램 코드에 저장되지 않습니다.</small>
+    </section>
+  </main>
+  <script src="./owner-login.js?v=1"></script>
+  <script src="./pwa.js?v=1"></script>
+</body>
+</html>

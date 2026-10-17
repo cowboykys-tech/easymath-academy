@@ -1,0 +1,18 @@
+{
+  "id": "/teacher-app",
+  "name": "이지매쓰 선생님",
+  "short_name": "이지매쓰 선생님",
+  "description": "이지매쓰 선생님 수업·학생평가·근무 기록",
+  "start_url": "/teacher.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f3ea",
+  "theme_color": "#173f35",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "/teacher-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/teacher-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/teacher-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

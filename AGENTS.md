@@ -24,4 +24,4 @@
 - 옵시디언은 검색 가능한 장기 지식과 사람이 읽는 기록 보관용으로 사용한다.
 - 구조화된 운영 데이터의 기준은 애플리케이션 데이터베이스다.
 
-상세한 제품 맥락은 `PROJECT_CONTEXT.md`를 참고한다.
+상세한 제품 맥락은 `PROJECT_CONTEXT.md`를 참고한다. 원장님 노트북 설치, Obsidian, Codex, 백업과 유지보수 인계는 `HANDOFF_AND_MAINTENANCE.md`를 기준으로 한다.

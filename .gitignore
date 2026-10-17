@@ -1,0 +1,13 @@
+data/*.sqlite3
+data/*.sqlite3-*
+data/photos/
+data/backups/
+__pycache__/
+*.pyc
+.env
+secrets.json
+release/
+tmp/
+.DS_Store
+remote-access/windows/offline/
+

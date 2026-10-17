@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173f35" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="이지매쓰 선생님" />
+  <title>이지매쓰 선생님</title>
+  <link rel="manifest" href="/teacher.webmanifest" />
+  <link rel="icon" href="/teacher-icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/teacher-icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./teacher.css?v=10" />
+</head>
+<body>
+  <main class="teacher-shell">
+    <header class="teacher-brand">
+      <div class="brand-lockup"><span>E</span><div><strong>이지매쓰</strong><small>선생님 앱</small></div></div>
+      <div class="teacher-header-actions"><button class="teacher-install" data-pwa-install type="button" hidden>앱 설치</button><button id="openAttendance" class="attendance-quick" hidden><span>◷</span><strong>출퇴근 기록</strong><small id="attendanceQuickStatus">출근 전</small></button></div>
+    </header>
+
+    <section id="loadingView" class="screen-card center"><div class="loader"></div><p>로그인 상태를 확인하고 있습니다.</p></section>
+
+    <section id="loginView" class="screen-card login-card" hidden>
+      <span class="eyebrow">TEACHER ATTENDANCE</span>
+      <h1>출근과 퇴근을<br>간단하게 요청하세요.</h1>
+      <p>카카오계정으로 본인을 확인한 뒤 버튼을 누르면 원장님 승인 대기로 전달됩니다. 원장님이 승인한 시간만 근무 기록으로 확정됩니다.</p>
+      <a class="kakao-login" href="/auth/kakao/start"><span>💬</span> 카카오로 로그인</a>
+      <div id="configNotice" class="config-notice" hidden>카카오 개발자 앱 설정이 끝나면 이 버튼으로 바로 로그인할 수 있습니다.</div>
+      <div id="demoArea" class="demo-area" hidden><span>연동 전 기능 확인</span><div><a href="/auth/demo?teacher=demo1">이선생으로 체험</a><a href="/auth/demo?teacher=demo2">최선생으로 체험</a></div></div>
+    </section>
+
+    <section id="appView" hidden>
+      <div class="profile-card">
+        <div id="teacherAvatar" class="teacher-avatar">선</div>
+        <div><span class="eyebrow">WELCOME</span><h1><span id="teacherName">선생님</span>, 안녕하세요.</h1><p id="todayLabel"></p></div>
+        <a class="logout" href="/auth/logout">로그아웃</a>
+      </div>
+
+      <section class="schedule-card">
+        <div class="section-head">
+          <div><span class="eyebrow">MY WEEKLY CLASSES</span><h2>내 수업 달력</h2></div>
+          <div class="schedule-tools"><span id="myLessonCount" class="lesson-count">0개 수업</span><button id="scheduleRefreshButton">새로고침</button></div>
+        </div>
+        <p class="schedule-guide">원장님 시간표에서 나에게 배정된 수업만 보여요. 수업을 누르면 함께 공부할 학생을 확인할 수 있습니다.</p>
+        <div id="myWeekCalendar" class="my-week-calendar"></div>
+      </section>
+
+      <section class="evaluation-card">
+        <div class="section-head evaluation-head">
+          <div><span class="eyebrow">AFTER CLASS</span><h2>학생 수업 평가</h2></div>
+          <label class="evaluation-date"><span>수업일</span><input id="evaluationDate" type="date" /></label>
+        </div>
+        <p class="schedule-guide">수업을 마친 뒤 학생별로 항목을 빠르게 선택하고 관찰 내용을 적어 주세요. 저장한 평가는 원장님의 학부모 피드백 작성함에 바로 전달됩니다.</p>
+        <div class="evaluation-progress"><strong id="evaluationProgress">0 / 0명 작성</strong><span>평가 내용은 학부모에게 자동 전송되지 않습니다.</span></div>
+        <div id="evaluationLessonList" class="evaluation-lesson-list"></div>
+      </section>
+
+      <section class="month-card">
+        <div class="section-head month-head">
+          <div><span class="eyebrow">MONTHLY CALENDAR</span><h2>월별 전체 수업</h2></div>
+          <div class="month-controls"><button id="prevMonth" aria-label="이전 달">‹</button><strong id="monthLabel"></strong><button id="nextMonth" aria-label="다음 달">›</button><button id="todayMonth" class="today-button">오늘</button></div>
+        </div>
+        <p class="schedule-guide">내 주간 수업을 기준으로 매달 전체 일정을 펼쳐 봅니다. 날짜 안의 수업을 누르면 학생 명단이 열립니다.</p>
+        <div class="month-scroll"><div id="monthCalendar" class="month-calendar"></div></div>
+      </section>
+
+      <section class="history-card"><div class="section-head"><div><span class="eyebrow">HISTORY</span><h2>최근 출퇴근 요청</h2></div><button id="refreshButton">새로고침</button></div><div id="historyList" class="history-list"></div></section>
+    </section>
+  </main>
+  <dialog id="lessonDialog" class="lesson-dialog">
+    <button id="closeLessonDialog" class="dialog-close" aria-label="닫기">×</button>
+    <span id="lessonDialogDay" class="eyebrow">MONDAY</span>
+    <h2 id="lessonDialogTitle">수업 정보</h2>
+    <div class="lesson-detail-grid"><div><span>시간</span><strong id="lessonDialogTime"></strong></div><div><span>과목</span><strong id="lessonDialogSubject"></strong></div></div>
+    <div class="student-roster"><div class="roster-head"><h3>공부할 학생</h3><span id="lessonStudentCount">0명</span></div><div id="lessonStudentList"></div></div>
+  </dialog>
+  <dialog id="attendanceDialog" class="attendance-dialog">
+    <button id="closeAttendanceDialog" class="attendance-dialog-close" aria-label="닫기">×</button>
+    <section class="status-card attendance-modal-card">
+      <span class="eyebrow">TODAY ATTENDANCE</span>
+      <h2 id="statusTitle">오늘 근무를 시작해 주세요.</h2>
+      <p id="statusDescription">출근 버튼을 누르면 원장님에게 승인 요청이 전달됩니다.</p>
+      <div id="todayWorkPlan" class="today-work-plan"><span>오늘 예정 근무</span><strong>등록된 근무시간 없음</strong></div>
+      <div class="time-line"><div><span>출근</span><strong id="clockInTime">--:--</strong><small id="clockInStatus">요청 전</small></div><b>→</b><div><span>퇴근</span><strong id="clockOutTime">--:--</strong><small id="clockOutStatus">요청 전</small></div></div>
+      <div class="attendance-buttons"><button id="clockInButton" class="primary">출근 요청</button><button id="clockOutButton" class="secondary">퇴근 요청</button></div>
+      <div class="adjustment-buttons"><button id="earlyLeaveButton" type="button">조퇴 요청</button><button id="overtimeButton" type="button">추가근무 요청</button><button id="scheduleChangeButton" type="button">근무시간 변경 요청</button></div>
+      <div class="approval-guide"><span>1</span> 선생님 요청 <b>→</b><span>2</span> 원장님 확인 <b>→</b><span>3</span> 근무 기록 확정</div>
+    </section>
+  </dialog>
+  <dialog id="adjustmentDialog" class="lesson-dialog adjustment-dialog">
+    <button id="closeAdjustmentDialog" class="dialog-close" type="button" aria-label="닫기">×</button>
+    <form id="adjustmentForm">
+      <input id="adjustmentType" type="hidden" />
+      <span class="eyebrow">WORK TIME REQUEST</span>
+      <h2 id="adjustmentDialogTitle">근무 변경 요청</h2>
+      <p id="adjustmentPlanSummary" class="adjustment-plan-summary"></p>
+      <div id="earlyLeaveFields" class="adjustment-time-fields"><label><span>조퇴 예정 시각</span><input id="earlyLeaveEnd" type="time" /></label></div>
+      <div id="overtimeFields" class="adjustment-time-fields" hidden><label><span>추가근무 시작</span><input id="overtimeStart" type="time" /></label><label><span>추가근무 종료</span><input id="overtimeEnd" type="time" /></label></div>
+      <div id="scheduleChangeFields" class="schedule-change-fields" hidden><label><span>변경할 근무일</span><input id="scheduleChangeDate" type="date" /></label><div class="adjustment-time-fields"><label><span>변경 출근</span><input id="scheduleChangeStart" type="time" /></label><label><span>변경 퇴근</span><input id="scheduleChangeEnd" type="time" /></label></div></div>
+      <label class="adjustment-reason"><span>요청 사유</span><textarea id="adjustmentReason" rows="4" maxlength="1000" placeholder="원장님이 확인할 수 있도록 사유를 적어 주세요." required></textarea></label>
+      <div class="adjustment-form-actions"><button id="cancelAdjustment" type="button">취소</button><button class="submit-adjustment" type="submit">승인 요청 보내기</button></div>
+    </form>
+  </dialog>
+  <dialog id="evaluationDialog" class="lesson-dialog evaluation-dialog">
+    <button id="closeEvaluationDialog" class="dialog-close" type="button" aria-label="닫기">×</button>
+    <form id="evaluationForm">
+      <input id="evaluationLessonId" type="hidden" />
+      <input id="evaluationStudentId" type="hidden" />
+      <span class="eyebrow">STUDENT REVIEW</span>
+      <h2 id="evaluationDialogTitle">학생 수업 평가</h2>
+      <p id="evaluationLessonSummary" class="evaluation-lesson-summary"></p>
+      <label class="evaluation-attendance"><span>오늘 출결</span><select id="studentAttendanceStatus"><option value="present">출석</option><option value="late">지각</option><option value="absent">결석</option><option value="excused">인정결석</option><option value="makeup">보강</option></select></label>
+      <div id="evaluationCriteria" class="evaluation-criteria"></div>
+      <label class="evaluation-note"><span>선생님 관찰 내용</span><textarea id="evaluationNote" rows="5" maxlength="2000" placeholder="오늘 잘한 점, 어려워한 부분, 다음 수업에서 확인할 내용을 몇 문장으로 적어 주세요." required></textarea><small><b id="evaluationNoteCount">0</b>/2000자</small></label>
+      <div class="evaluation-actions"><button id="cancelEvaluation" type="button">취소</button><button class="save-evaluation" type="submit">원장님께 평가 저장</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="./teacher.js?v=10"></script>
+  <script src="./pwa.js?v=1"></script>
+</body>
+</html>
